@@ -30,7 +30,7 @@ import java.util.Scanner;
 				
 				while (scanner.hasNextLine()) {
 					final String command = scanner.nextLine();
-					usercommand.execute(command);
+					usercommand.execute(command, socket);
 					
 					if (COMMAND_STOP_SERVER.equals(command)) {
 						echoServer.stopServer();
