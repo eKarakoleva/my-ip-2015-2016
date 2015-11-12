@@ -36,7 +36,13 @@ import java.util.Scanner;
 				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally {
+				echoServer.onClientStopped(this);
 			}
+		}
+
+		public void stopClient() throws IOException {
+			socket.close();
 		}
 	}
 
