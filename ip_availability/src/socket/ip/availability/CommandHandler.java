@@ -32,6 +32,17 @@ public class CommandHandler{
 						
 					}
 					break;
+				case "logout":
+					String namelogout = split_command[0];	
+					
+					if(users.synusersInfo.containsKey(namelogout)){
+						if(users.synusersInfo.get(namelogout).isCurrentlylogged()){
+							users.synusersInfo.get(namelogout).setCurrentlylogged(false);
+						}else{
+						System.out.println("NOT LOGIN");
+						}
+					}else{System.out.println("NOT LOGIN");};
+					break;
 					}
 				}
 			}
