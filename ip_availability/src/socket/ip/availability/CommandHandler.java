@@ -61,7 +61,14 @@ public class CommandHandler{
 					  }
 					break;
 					}
-				}
+				}else if (split_command.length == 3 && "info".contains(split_command[1]) ){
+					String nameask = split_command[0];
+					String namegive = split_command[2];
+					if(users.usersInfo.get(nameask).isCurrentlylogged()){
+						 System.out.println(users.usersInfo.get(namegive).getLogincount());
+						 System.out.println(users.usersInfo.get(namegive).isCurrentlylogged());
+					}
 			}
 		}
 	}
+}
