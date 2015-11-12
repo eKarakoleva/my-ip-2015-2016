@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-	public class ClientHandler {
+	public class ClientHandler implements Runnable {
 		private static final String COMMAND_STOP_SERVER = "stopServer";
 
 		private final Socket socket;
@@ -17,6 +17,7 @@ import java.util.Scanner;
 			this.echoServer = echoServer;
 		}
 		
+		@Override
 		public void run() {
 			try {
 				final PrintStream out = 
