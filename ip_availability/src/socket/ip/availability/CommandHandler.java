@@ -43,6 +43,15 @@ public class CommandHandler{
 						}
 					}else{System.out.println("NOT LOGIN");};
 					break;
+				case "listabsent":
+					System.out.print("ok");
+					  for (String userName : users.synusersInfo.keySet()){
+						   User user = users.synusersInfo.get(userName);
+							   if(!user.isCurrentlylogged()){
+								   System.out.print(":" + userName);
+							   }
+					  }
+					break;
 					}
 				}
 			}
