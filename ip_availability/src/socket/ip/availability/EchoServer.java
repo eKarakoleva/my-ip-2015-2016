@@ -37,6 +37,7 @@ public class EchoServer {
 
 			final ClientHandler client =
 				new ClientHandler(this, socket);
+			
 			clients.add(client);
 			
 			new Thread(client).start();

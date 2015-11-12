@@ -24,12 +24,19 @@ import java.util.Scanner;
 					new PrintStream(socket.getOutputStream());
 				final Scanner scanner =
 					new Scanner(socket.getInputStream());
+				
+				final CommandHandler usercommand =
+						new CommandHandler();
+				
 				while (scanner.hasNextLine()) {
 					final String command = scanner.nextLine();
+					usercommand.execute(command);
+					
 					if (COMMAND_STOP_SERVER.equals(command)) {
 						echoServer.stopServer();
 						break;
 					}
+					
 					out.println(command);
 				}
 				scanner.close();
