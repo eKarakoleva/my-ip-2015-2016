@@ -52,6 +52,14 @@ public class CommandHandler{
 							   }
 					  }
 					break;
+				case "listavailable":
+					  for (String userName : users.synusersInfo.keySet()){
+						   User user = users.synusersInfo.get(userName);
+							   if(user.isCurrentlylogged()){
+								   System.out.print(":" + userName);
+							   }
+					  }
+					break;
 					}
 				}
 			}
