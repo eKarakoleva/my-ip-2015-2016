@@ -17,7 +17,20 @@ public class CommandHandler{
 					// to do
 					break;
 				case "login":
-					//to do
+					String name = split_command[0];		
+					if(!(users.synusersInfo.containsKey(name))){
+						User user = new User(name);
+						users.synusersInfo.put(name,user);
+						System.out.println(users.synusersInfo.get(name).getUsername());
+						
+					}
+					if(users.synusersInfo.get(name).isCurrentlylogged()==false){
+
+						users.synusersInfo.get(name).incrementCounter();
+						users.synusersInfo.get(name).setCurrentlylogged(true);
+						System.out.println(users.synusersInfo.get(name).getUsername());
+						
+					}
 					break;
 					}
 				}
