@@ -75,20 +75,20 @@ public class User {
 		
 		String[] logindates = login.split(",");
 		String[] logoutdates = logout.split(",");
-		String a = "";
+		String timeInterval = "";
 		for(int i=0;i<logInDates.size(); i++){
 			if(logOutDates.size()< logInDates.size()){
 				if(logInDates.size()-1 == i){
-					a = ":"+logindates[i];	
+					timeInterval = ":"+logindates[i];	
 				}else{
-					a = ":"+logindates[i]+":"+logoutdates[i];
+					timeInterval = ":"+logindates[i]+":"+logoutdates[i];
 					}
 				
 			}else{
-				a = ":"+logindates[i]+":"+logoutdates[i];
+				timeInterval = ":"+logindates[i]+":"+logoutdates[i];
 				}
 
-			loggingDates.add(a);			
+			loggingDates.add(timeInterval);			
 		}
 		return loggingDates;
 	}
