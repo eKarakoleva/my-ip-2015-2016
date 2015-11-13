@@ -49,7 +49,7 @@ public class CommandHandler{
 					break;
 					
 				case "listabsent":
-					System.out.print("ok");
+					out.print("ok");
 					  for (String userName : clients.keySet()){
 						   User user = clients.get(userName);
 							   if(!user.isCurrentlylogged()){
@@ -58,6 +58,7 @@ public class CommandHandler{
 					  }
 					break;
 				case "listavailable":
+					out.print("ok");
 					  for (String userName : clients.keySet()){
 						   User user = clients.get(userName);
 							   if(user.isCurrentlylogged()){
@@ -70,10 +71,13 @@ public class CommandHandler{
 			}else if (split_command.length == 3 && "info".contains(split_command[1]) ){
 				String nameask = split_command[0];
 				String namegive = split_command[2];
+				out.print("ok");
 				if(clients.containsKey(nameask) && clients.containsKey(namegive)){
 					if(clients.get(nameask).isCurrentlylogged()){
-						out.println(clients.get(namegive).getLogincount());
-						out.println(clients.get(namegive).isCurrentlylogged());
+						out.print(":" + namegive);
+						out.print(":" + clients.get(namegive).isCurrentlylogged());
+						out.print(":" + clients.get(namegive).getLogincount());
+						out.println();
 					}
 				}else{out.println("error:notlogged");}
 			}
