@@ -17,19 +17,19 @@ public class User {
 	private int logincount;
 
 	
-	final List<Date> logInDates = new LinkedList<Date>();
-	final List<Date> logOutDates = new LinkedList<Date>();
+	final List<String> logInDates = new LinkedList<String>();
+	final List<String> logOutDates = new LinkedList<String>();
 	//final List<String> loggingDates = new LinkedList<String>();
 	final List<String> loggingDates = new LinkedList<String>();
 	
-	DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	DateFormat df = new SimpleDateFormat("yyyy­MM­dd'T'HH'_'mm'_'ss.SSSZ");
 
 	 
 	 public User(String name) {
 		this.setUsername(name);
 		this.setCurrentlylogged(true);
 		this.setLogincount(1);
-		this.logInDates.add(new Date());
+		this.logInDates.add(df.format(new Date()));
 	}
 
 	public boolean isCurrentlylogged() {
@@ -61,13 +61,13 @@ public class User {
 	}
 	
 	public void setInDate(Date date){
-		this.logInDates.add(date);
+		this.logInDates.add(df.format(new Date()));
 		System.out.println(date);
 	}
 	
 	public void setOutDate(Date date){
 
-		this.logOutDates.add(date);
+		this.logOutDates.add(df.format(new Date()));
 		System.out.println(date);
 	}
 	
