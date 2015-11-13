@@ -25,6 +25,7 @@ import java.util.Scanner;
 		@Override
 		public void run() {
 			try {
+
 				final Scanner scanner =
 					new Scanner(socket.getInputStream());
 				

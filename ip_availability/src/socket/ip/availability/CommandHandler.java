@@ -20,6 +20,7 @@ public class CommandHandler{
 				switch (split_command[1]) {
 				
 				case "shutdown": 
+					out.println("ok");
 					echoServer.stopServer();
 					break;
 				case "login":
@@ -27,16 +28,15 @@ public class CommandHandler{
 					if(!(clients.containsKey(name))){
 						User user = new User(name);
 						clients.put(name,user);
-						out.println(clients.get(name).getUsername());
-						//in date
+						out.println("ok");
 						
 					}
 					if(clients.get(name).isCurrentlylogged()==false){
 
 						clients.get(name).incrementCounter();
 						clients.get(name).setCurrentlylogged(true);
-						out.println(clients.get(name).getUsername());
 						clients.get(name).setInDate(new Date());
+						out.println("ok");
 						
 					}
 					break;
@@ -45,6 +45,7 @@ public class CommandHandler{
 					
 					if(clients.containsKey(namelogout)){
 						if(clients.get(namelogout).isCurrentlylogged()){
+							out.println("ok");
 							clients.get(namelogout).setCurrentlylogged(false);
 							clients.get(namelogout).setOutDate(new Date());
 						}else{
@@ -88,8 +89,6 @@ public class CommandHandler{
 						while (loggingDates.hasNext()) {
 							out.printf(loggingDates.next());
 						}
-				 
-					
 						out.println();
 					}
 				}else{out.println("error:notlogged");}

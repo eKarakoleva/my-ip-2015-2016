@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
 public class EchoServer {
 	private final int port;
 	private boolean running;
@@ -43,9 +42,7 @@ public class EchoServer {
 				new ClientHandler(this, socket,clientsInfo);
 			
 			clients.add(client);
-			
 			new Thread(client).start();
-			System.out.println(client);
 		}
 	}
 
