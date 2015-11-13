@@ -84,11 +84,9 @@ public class CommandHandler{
 						out.print(":" + namegive);
 						out.print(":" + clients.get(namegive).isCurrentlylogged());
 						out.print(":" + clients.get(namegive).getLogincount());
-						//out.print(":" + clients.get(namegive).getLoggingTime());
-						//clients.get(namegive).getLoggingTime();
 						Iterator<String> loggingDates = clients.get(namegive).getLoggingTime().iterator();
 						while (loggingDates.hasNext()) {
-							System.out.println(loggingDates.next());
+							out.printf(loggingDates.next());
 						}
 				 
 					

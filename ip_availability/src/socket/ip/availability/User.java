@@ -19,10 +19,9 @@ public class User {
 	
 	final List<String> logInDates = new LinkedList<String>();
 	final List<String> logOutDates = new LinkedList<String>();
-	//final List<String> loggingDates = new LinkedList<String>();
 	final List<String> loggingDates = new LinkedList<String>();
 	
-	DateFormat df = new SimpleDateFormat("yyyy­MM­dd'T'HH'_'mm'_'ss.SSSZ");
+	DateFormat df = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH'_'mm'_'ss.SSSZ");
 
 	 
 	 public User(String name) {
@@ -62,13 +61,10 @@ public class User {
 	
 	public void setInDate(Date date){
 		this.logInDates.add(df.format(new Date()));
-		System.out.println(date);
 	}
 	
 	public void setOutDate(Date date){
-
 		this.logOutDates.add(df.format(new Date()));
-		System.out.println(date);
 	}
 	
 	public List<String> getLoggingTime(){
@@ -85,11 +81,11 @@ public class User {
 				if(logInDates.size()-1 == i){
 					a = ":"+logindates[i];	
 				}else{
-					a = ":"+logindates[i] + ":"+logoutdates[i];
+					a = ":"+logindates[i]+":"+logoutdates[i];
 					}
 				
 			}else{
-				a = ":"+logindates[i] + ":"+logoutdates[i];
+				a = ":"+logindates[i]+":"+logoutdates[i];
 				}
 
 			loggingDates.add(a);			
