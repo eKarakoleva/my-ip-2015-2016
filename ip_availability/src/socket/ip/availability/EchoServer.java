@@ -5,8 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class EchoServer {
@@ -16,6 +18,8 @@ public class EchoServer {
 	private final List<ClientHandler> clients =
 			Collections.synchronizedList(
 				new LinkedList<ClientHandler>());
+	Map<String,User>  usersInfo = new HashMap<String,User>();
+	Map<String,User> clientsInfo = Collections.synchronizedMap(usersInfo);
 
 	public EchoServer(int port) {
 		this.port = port;
@@ -36,7 +40,7 @@ public class EchoServer {
 			}
 
 			final ClientHandler client =
-				new ClientHandler(this, socket);
+				new ClientHandler(this, socket,clientsInfo);
 			
 			clients.add(client);
 			

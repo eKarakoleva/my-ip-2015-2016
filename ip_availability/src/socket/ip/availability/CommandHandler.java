@@ -1,15 +1,14 @@
 package socket.ip.availability;
 
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Map;
 
 public class CommandHandler{
-
-	Users users = new Users();
-
 	
-	public synchronized void execute(String command, Socket socket) throws IOException{
+	public synchronized void execute(String command, Socket socket, Map<String,User> clients) throws IOException{
 		final PrintStream out = 
 				new PrintStream(socket.getOutputStream());
 		
@@ -23,26 +22,26 @@ public class CommandHandler{
 					break;
 				case "login":
 					String name = split_command[0];		
-					if(!(users.synusersInfo.containsKey(name))){
+					if(!(clients.containsKey(name))){
 						User user = new User(name);
-						users.synusersInfo.put(name,user);
-						out.println(users.synusersInfo.get(name).getUsername());
+						clients.put(name,user);
+						out.println(clients.get(name).getUsername());
 						
 					}
-					if(users.synusersInfo.get(name).isCurrentlylogged()==false){
+					if(clients.get(name).isCurrentlylogged()==false){
 
-						users.synusersInfo.get(name).incrementCounter();
-						users.synusersInfo.get(name).setCurrentlylogged(true);
-						out.println(users.synusersInfo.get(name).getUsername());
+						clients.get(name).incrementCounter();
+						clients.get(name).setCurrentlylogged(true);
+						out.println(clients.get(name).getUsername());
 						
 					}
 					break;
 				case "logout":
 					String namelogout = split_command[0];	
 					
-					if(users.synusersInfo.containsKey(namelogout)){
-						if(users.synusersInfo.get(namelogout).isCurrentlylogged()){
-							users.synusersInfo.get(namelogout).setCurrentlylogged(false);
+					if(clients.containsKey(namelogout)){
+						if(clients.get(namelogout).isCurrentlylogged()){
+							clients.get(namelogout).setCurrentlylogged(false);
 						}else{
 						out.println("error:notlogged");
 						}
@@ -51,16 +50,16 @@ public class CommandHandler{
 					
 				case "listabsent":
 					System.out.print("ok");
-					  for (String userName : users.synusersInfo.keySet()){
-						   User user = users.synusersInfo.get(userName);
+					  for (String userName : clients.keySet()){
+						   User user = clients.get(userName);
 							   if(!user.isCurrentlylogged()){
 								   out.print(":" + userName);
 							   }
 					  }
 					break;
 				case "listavailable":
-					  for (String userName : users.synusersInfo.keySet()){
-						   User user = users.synusersInfo.get(userName);
+					  for (String userName : clients.keySet()){
+						   User user = clients.get(userName);
 							   if(user.isCurrentlylogged()){
 								   out.print(":" + userName);
 							   }
@@ -71,10 +70,12 @@ public class CommandHandler{
 			}else if (split_command.length == 3 && "info".contains(split_command[1]) ){
 				String nameask = split_command[0];
 				String namegive = split_command[2];
-				if(users.usersInfo.get(nameask).isCurrentlylogged()){
-					out.println(users.usersInfo.get(namegive).getLogincount());
-					out.println(users.usersInfo.get(namegive).isCurrentlylogged());
-				}
+				if(clients.containsKey(nameask) && clients.containsKey(namegive)){
+					if(clients.get(nameask).isCurrentlylogged()){
+						out.println(clients.get(namegive).getLogincount());
+						out.println(clients.get(namegive).isCurrentlylogged());
+					}
+				}else{out.println("error:notlogged");}
 			}
 		}
 	}
