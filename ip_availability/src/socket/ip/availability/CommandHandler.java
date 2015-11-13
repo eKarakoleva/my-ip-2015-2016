@@ -4,6 +4,8 @@ package socket.ip.availability;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 
 public class CommandHandler{
@@ -26,6 +28,7 @@ public class CommandHandler{
 						User user = new User(name);
 						clients.put(name,user);
 						out.println(clients.get(name).getUsername());
+						//in date
 						
 					}
 					if(clients.get(name).isCurrentlylogged()==false){
@@ -33,6 +36,7 @@ public class CommandHandler{
 						clients.get(name).incrementCounter();
 						clients.get(name).setCurrentlylogged(true);
 						out.println(clients.get(name).getUsername());
+						clients.get(name).setInDate(new Date());
 						
 					}
 					break;
@@ -42,6 +46,7 @@ public class CommandHandler{
 					if(clients.containsKey(namelogout)){
 						if(clients.get(namelogout).isCurrentlylogged()){
 							clients.get(namelogout).setCurrentlylogged(false);
+							clients.get(namelogout).setOutDate(new Date());
 						}else{
 						out.println("error:notlogged");
 						}
@@ -79,6 +84,14 @@ public class CommandHandler{
 						out.print(":" + namegive);
 						out.print(":" + clients.get(namegive).isCurrentlylogged());
 						out.print(":" + clients.get(namegive).getLogincount());
+						//out.print(":" + clients.get(namegive).getLoggingTime());
+						//clients.get(namegive).getLoggingTime();
+						Iterator<String> loggingDates = clients.get(namegive).getLoggingTime().iterator();
+						while (loggingDates.hasNext()) {
+							System.out.println(loggingDates.next());
+						}
+				 
+					
 						out.println();
 					}
 				}else{out.println("error:notlogged");}
