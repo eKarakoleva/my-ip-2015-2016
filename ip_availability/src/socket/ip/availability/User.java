@@ -17,11 +17,11 @@ public class User {
 	private int logincount;
 
 	
-	final List<String> logInDates = new LinkedList<String>();
-	final List<String> logOutDates = new LinkedList<String>();
-	final List<String> loggingDates = new LinkedList<String>();
+	private final List<String> logInDates = new LinkedList<String>();
+	private final List<String> logOutDates = new LinkedList<String>();
+	private final List<String> loggingDates = new LinkedList<String>();
 	
-	DateFormat df = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH'_'mm'_'ss.SSSZ");
+	final DateFormat df = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH'_'mm'_'ss.SSSZ");
 
 	 
 	 public User(String name) {
