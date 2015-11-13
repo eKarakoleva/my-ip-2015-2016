@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CommandHandler{
 	
-	public synchronized void execute(String command, Socket socket, Map<String,User> clients) throws IOException{
+	public synchronized void execute(String command, Socket socket, Map<String,User> clients,EchoServer echoServer) throws IOException{
 		final PrintStream out = 
 				new PrintStream(socket.getOutputStream());
 		
@@ -18,7 +18,7 @@ public class CommandHandler{
 				switch (split_command[1]) {
 				
 				case "shutdown": 
-					// to do echoServer.stopServer();
+					echoServer.stopServer();
 					break;
 				case "login":
 					String name = split_command[0];		
@@ -66,6 +66,8 @@ public class CommandHandler{
 							   }
 					  }
 					break;
+				default: out.println("error:unknowncommand");
+                break;
 					
 				}
 			}else if (split_command.length == 3 && "info".contains(split_command[1]) ){
@@ -80,8 +82,8 @@ public class CommandHandler{
 						out.println();
 					}
 				}else{out.println("error:notlogged");}
-			}
-		}
+			}else{out.println("error:unknowncommand");}
+		}else{out.println("error:unknowncommand");}
 	}
 	
 }

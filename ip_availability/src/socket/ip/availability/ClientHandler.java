@@ -11,7 +11,6 @@ import java.util.Scanner;
 	public class ClientHandler implements Runnable {
 		Map<String,User>  usersInfo = new HashMap<String,User>();
 		Map<String,User> clientsInfo = Collections.synchronizedMap(usersInfo);
-		private static final String COMMAND_STOP_SERVER = "stopServer";
 
 		private final Socket socket;
 
@@ -26,8 +25,6 @@ import java.util.Scanner;
 		@Override
 		public void run() {
 			try {
-				//final PrintStream out = 
-					//new PrintStream(socket.getOutputStream());
 				final Scanner scanner =
 					new Scanner(socket.getInputStream());
 				
@@ -36,17 +33,9 @@ import java.util.Scanner;
 				
 				while (scanner.hasNextLine()) {
 					final String command = scanner.nextLine();
-					usercommand.execute(command, socket,clientsInfo);
-					
-					if (COMMAND_STOP_SERVER.equals(command)) {
-						echoServer.stopServer();
-						break;
-					}
-					
-					//out.println(command);
+					usercommand.execute(command, socket,clientsInfo,echoServer);
 				}
 				scanner.close();
-			//	out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}finally {
@@ -57,5 +46,7 @@ import java.util.Scanner;
 		public void stopClient() throws IOException {
 			socket.close();
 		}
+		
+		
 	}
 
