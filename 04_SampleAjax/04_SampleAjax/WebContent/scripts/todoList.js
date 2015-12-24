@@ -72,6 +72,21 @@ $(document).ready(function() {
 		});
 	 }
 	
+	function updateTask(taskId,title,description){
+		
+		$.ajax(taskEndpoint(taskId), {
+			method: "PUT",
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify({
+				title: title,
+				description: description
+			}),
+			dataType: "json"
+		}).done(function( data ) {
+			reloadTasks();
+		});
+	}
+	
 	function attachHandlers() {
 		var taskId = "";
 		$(document).on("click", "#tasksList [data-task-id]", function() {
@@ -94,11 +109,25 @@ $(document).ready(function() {
 		});	
 		
 		$(document).on('click', '.task-action-ok', function(){
+			if($(this).text() == "Edit"){
+				showPanel("updatePanel");
+			}
+			
+			if($(this).text() == "Save"){
+				var title = $('.form-control[name=title]');
+				var description = $('.form-control[name=description]');
+				updateTask(taskId,title.val(),description.val());
+				title.val("");
+				description.val("");
+				$("#updatePanel").hide();
+			}
 			
 			if($(this).text() == "OK"){
-				var title = $($('.form-control[name=title]')[1]).val();
-				var description = $($('.form-control[name=description]')[1]).val();
-				createTask(title,description);
+				var title = $($('.form-control[name=title]')[1]);
+				var description = $($('.form-control[name=description]')[1]);
+				createTask(title.val(),description.val());
+				title.val("");
+				description.val("");
 				$("#createPanel").hide();
 			}
 		});
