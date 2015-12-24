@@ -52,9 +52,25 @@ $(document).ready(function() {
 		$.ajax(taskEndpoint(taskId), {
 			method: "DELETE"
 		}).done(function( data ) {
-			location.reload();
+			reloadTasks();
 		});
 	}
+	
+	function createTask(title,description){
+		 
+		 var task = {
+					title: title,
+					description: description
+				};
+		$.ajax(ENDPOINT, {
+			method: "POST",
+			contentType: "application/json; charset=utf-8",
+			data: JSON.stringify(task),
+			dataType: "json"
+		}).done(function( data ) {
+			reloadTasks();
+		});
+	 }
 	
 	function attachHandlers() {
 		var taskId = "";
@@ -70,8 +86,22 @@ $(document).ready(function() {
 		
 		$(document).on('click', '.task-action-remove', function(){
 			deleteTask(taskId);
+			$('#readPanel').hide();
 		});
-				
+		
+		$(document).on('click', '#addTaskButton', function(){
+			showPanel("createPanel");
+		});	
+		
+		$(document).on('click', '.task-action-ok', function(){
+			
+			if($(this).text() == "OK"){
+				var title = $($('.form-control[name=title]')[1]).val();
+				var description = $($('.form-control[name=description]')[1]).val();
+				createTask(title,description);
+				$("#createPanel").hide();
+			}
+		});
 		
 	}
 	attachHandlers();
